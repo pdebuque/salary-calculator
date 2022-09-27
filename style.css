@@ -1,0 +1,30 @@
+:root {
+    --title-font: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    --paragraph-font: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-family: var(--title-font);
+    font-weight: 500;
+}
+
+h2 {
+    font-family: var(--title-font);
+    font-weight: 400;
+}
+
+input {
+    font-family: var(--paragraph-font)
+}
+
+table {
+    font-family: var(--paragraph-font);
+    font-weight: 300;
+    font-size: 12px;
+}
+
+thead {
+    background-color: rgb(124, 121, 121);
+    color: white;
+    font-weight: 400;
+}
