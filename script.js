@@ -7,21 +7,12 @@ function readyNow() {
 
     //function to take inputs and add them to the table
     $('#submitEmployeeButton').on('click', addEmployee);
-
-    $('table button').on('click', deleteRow);
 }
 
 
 // master database of employees
-const employees = [
-    {
-        firstName: 'Dwight',
-        lastName: 'Shrute',
-        id: '1234',
-        title: 'Assistant (to the) Regional Manager',
-        salary: 50000
-    }
-];
+const employees = [];
+const totalSalaryStyle = {}; //object to store style adjustments to total salary figure
 
 let totalSalaries = 0;
 
@@ -47,17 +38,16 @@ function addEmployee() {
     $('#salary').val('');
 
     //update total salary figure
-    totalSalaries += Number(newEmployee.salary)/12;
+    totalSalaries += Number(newEmployee.salary) / 12;
     $('#totalMonthlySalaries').empty().append(totalSalaries);
 
     //update color of figure
-    if (totalSalaries > 20000) {
-        $('.total').css('background-color', 'red');
-        $('.total').css('color', 'white');
-    } else {
-        $('.total').css('background-color', 'white');
-        $('.total').css('color', 'black');
-    }
+
+    totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
+    totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
+
+    $('.total').css('background-color', totalSalaryStyle.bgColor);
+    $('.total').css('color', totalSalaryStyle.textColor);
 
     //add employee to the page
     addRow(newEmployee);
@@ -65,7 +55,7 @@ function addEmployee() {
 
 function addRow(employee) {
     console.log('in addRow')
-    $('#employeeTable').append(`<tr id='employee${employee.id}'>
+    $('#employeeTable').append(`<tr id='employee${employee.id}' data-monthlySalary='${employee.salary / 12}'>
     <th>${employee.firstName}</th>
     <th>${employee.lastName}</th>
     <th>${employee.id}</th>
@@ -73,6 +63,10 @@ function addRow(employee) {
     <th>$${employee.salary}</th>
     <th><button class="deleteButton">Delete</button></th>
     </tr>`)
+
+    //arm the button
+    $('.deleteButton').on('click', deleteRow)
+
 }
 
 //function to delete given row when button is clicked. Doesn't work when in the readyNow
@@ -82,16 +76,15 @@ function deleteRow() {
     $(this).parent().parent().hide();
 
     //update total salary figure
-
+    totalSalaries -= $(this).parent().parent().data('monthlySalary');
+    $('#totalMonthlySalaries').empty().append(totalSalaries);
 
     //update color of figure
-    if (totalSalaries > 20000) {
-        $('.total').css('background-color', 'red');
-        $('.total').css('color', 'white');
-    } else {
-        $('.total').css('background-color', 'white');
-        $('.total').css('color', 'black');
-    }
+    totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
+    totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
+
+    $('.total').css('background-color', totalSalaryStyle.bgColor);
+    $('.total').css('color', totalSalaryStyle.textColor);
 }
 
 function totalMonthlySalaries() {
@@ -103,7 +96,7 @@ function totalMonthlySalaries() {
     //empty and then fill field with correct number
     $('#totalMonthlySalaries').empty().append(totalMonthlySalaries)
 
-    
+
 
 }
 
