@@ -39,10 +39,9 @@ function addEmployee() {
 
     //update total salary figure
     totalSalaries += Number(newEmployee.salary) / 12;
-    $('#totalMonthlySalaries').empty().append(totalSalaries);
+    $('#totalMonthlySalaries').html(totalSalaries.toFixed(2));
 
     //update color of figure
-
     totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
     totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
 
@@ -55,7 +54,7 @@ function addEmployee() {
 
 function addRow(employee) {
     console.log('in addRow')
-    $('#employeeTable').append(`<tr id='employee${employee.id}' data-monthlySalary='${employee.salary / 12}'>
+    $('#employeeTableBody').append(`<tr clas='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
     <th>${employee.firstName}</th>
     <th>${employee.lastName}</th>
     <th>${employee.id}</th>
@@ -73,13 +72,18 @@ function addRow(employee) {
 
 function deleteRow() {
     console.log('in deleteRow');
-    $(this).parent().parent().hide();
+    console.log($(this).parent().parent());
+
+    $(this).parent().parent().hide(); //not sure about using hide() as the function. do we want to strike the row from the html altogether?
+
+
 
     //update total salary figure
-    totalSalaries -= $(this).parent().parent().data('monthlySalary');
-    $('#totalMonthlySalaries').empty().append(totalSalaries);
+    totalSalaries -= Number($(this).parent().parent().data('monthlySalary'));
+    console.log(totalSalaries)
+    $('#totalMonthlySalaries').html(totalSalaries);
 
-    //update color of figure
+    //update color of figure. seems like either there's a better (less redundant) way to keep this updated or this is a reason why we use libraries like react
     totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
     totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
 
@@ -87,18 +91,18 @@ function deleteRow() {
     $('.total').css('color', totalSalaryStyle.textColor);
 }
 
-function totalMonthlySalaries() {
-    //sum up all salary values in employees array
-    for (let employee of employees) {
-        totalMonthlySalaries += Number(employee.salary);
-    }
+// function totalMonthlySalaries() {
+//     //sum up all salary values in employees array
+//     for (let employee of employees) {
+//         totalMonthlySalaries += Number(employee.salary);
+//     }
 
-    //empty and then fill field with correct number
-    $('#totalMonthlySalaries').empty().append(totalMonthlySalaries)
+//     //empty and then fill field with correct number
+//     $('#totalMonthlySalaries').empty().append(totalMonthlySalaries)
 
+// }
 
-
-}
-
-
+//to-do
+//change monthly salary output to have fewer decimals
+//total currently breaks after deleting rows - i suspect it has to do with the second 'this' in function deleteRow
 
