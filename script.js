@@ -54,7 +54,7 @@ function addEmployee() {
 
 function addRow(employee) {
     console.log('in addRow')
-    $('#employeeTableBody').append(`<tr clas='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
+    $('#employeeTableBody').append(`<tr id = 'employee-${employee.id}' class='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
     <th>${employee.firstName}</th>
     <th>${employee.lastName}</th>
     <th>${employee.id}</th>
@@ -73,13 +73,16 @@ function addRow(employee) {
 function deleteRow() {
     console.log('in deleteRow');
     console.log($(this).parent().parent());
+    const employeeData = $(this).parent().parent().data();
+    console.log(employeeData);
+    console.log(employeeData.monthlysalary);
 
-    $(this).parent().parent().hide(); //not sure about using hide() as the function. do we want to strike the row from the html altogether?
+    $(this).parent().parent().remove(); //use .hide() or .remove()? probably depends on the future functionality of this app?
 
 
 
     //update total salary figure
-    totalSalaries -= Number($(this).parent().parent().data('monthlySalary'));
+    totalSalaries -= employeeData.monthlysalary;
     console.log(totalSalaries)
     $('#totalMonthlySalaries').html(totalSalaries);
 
