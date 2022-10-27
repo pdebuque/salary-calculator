@@ -74,7 +74,15 @@ tbody tr:nth-child(even) {
 }
 
 .total {
+    padding: .5em;
     margin: 10px 0px;
     font-family: var(--paragraph-font);
     font-size: .9em;
+    display: inline-block;
+}
+
+.over-budget {
+    background-color: red;
+    color: white;
+    font-weight: 700;
 }
