@@ -13,8 +13,9 @@ function readyNow() {
 // master database of employees
 const employees = [];
 const totalSalaryStyle = {}; //object to store style adjustments to total salary figure
-
 let totalSalaries = 0;
+
+
 
 function addEmployee() {
     console.log('in addEmployee')
@@ -26,7 +27,6 @@ function addEmployee() {
         title: $('#title').val(),
         salary: $('#salary').val(),
     }
-
     //push employee into array
     employees.push(newEmployee)
 
@@ -39,59 +39,36 @@ function addEmployee() {
 
     //update total salary figure
     totalSalaries += Number(newEmployee.salary) / 12;
-    $('#totalMonthlySalaries').html(totalSalaries.toFixed(2));
 
-    //update color of figure
-    totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
-    totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
-
-    $('.total').css('background-color', totalSalaryStyle.bgColor);
-    $('.total').css('color', totalSalaryStyle.textColor);
-
-    //add employee to the page
-    addRow(newEmployee);
+    //render
+    render();
 }
 
 function addRow(employee) {
     console.log('in addRow')
-    $('#employeeTableBody').append(`<tr id = 'employee-${employee.id}' class='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
-    <th>${employee.firstName}</th>
-    <th>${employee.lastName}</th>
-    <th>${employee.id}</th>
-    <th>${employee.title}</th>
-    <th>$${employee.salary}</th>
-    <th><button class="deleteButton">Delete</button></th>
-    </tr>`)
-
-    //arm the button
-    $('.deleteButton').on('click', deleteRow)
-
+    // $('#employeeTableBody').append(`<tr id = 'employee-${employee.id}' class='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
+    // <th>${employee.firstName}</th>
+    // <th>${employee.lastName}</th>
+    // <th>${employee.id}</th>
+    // <th>${employee.title}</th>
+    // <th>$${employee.salary}</th>
+    // <th><button class="deleteButton">Delete</button></th>
+    // </tr>`)
 }
 
 //function to delete given row when button is clicked. Doesn't work when in the readyNow
 
 function deleteRow() {
+    // loop over employees array, find the employee to be deleted
+
     console.log('in deleteRow');
     console.log($(this).parent().parent());
     const employeeData = $(this).parent().parent().data();
-    console.log(employeeData);
-    console.log(employeeData.monthlysalary);
 
     $(this).parent().parent().remove(); //use .hide() or .remove()? probably depends on the future functionality of this app?
 
-
-
-    //update total salary figure
-    totalSalaries -= employeeData.monthlysalary;
-    console.log(totalSalaries)
-    $('#totalMonthlySalaries').html(totalSalaries);
-
-    //update color of figure. seems like either there's a better (less redundant) way to keep this updated or this is a reason why we use libraries like react
-    totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
-    totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
-
-    $('.total').css('background-color', totalSalaryStyle.bgColor);
-    $('.total').css('color', totalSalaryStyle.textColor);
+    //render
+    render();
 }
 
 // function totalMonthlySalaries() {
@@ -109,3 +86,30 @@ function deleteRow() {
 //change monthly salary output to have fewer decimals
 //total currently breaks after deleting rows - i suspect it has to do with the second 'this' in function deleteRow
 
+
+
+function render() {
+
+    $('#totalMonthlySalaries').html(totalSalaries.toFixed(2));
+    //update color of figure
+    totalSalaryStyle.bgColor = totalSalaries > 20000 ? 'red' : 'white';
+    totalSalaryStyle.textColor = totalSalaries > 20000 ? 'white' : 'black';
+
+    $('.total').css('background-color', totalSalaryStyle.bgColor);
+    $('.total').css('color', totalSalaryStyle.textColor);
+
+    //add employees to dom
+    for (let employee of employees) {
+        $('#employeeTableBody').append(`<tr id = 'employee-${employee.id}' class='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
+    <th>${employee.firstName}</th>
+    <th>${employee.lastName}</th>
+    <th>${employee.id}</th>
+    <th>${employee.title}</th>
+    <th>$${employee.salary}</th>
+    <th><button class="deleteButton">Delete</button></th>
+    </tr>`)
+    };
+
+    //arm the button
+    $('.deleteButton').on('click', deleteRow)
+}
