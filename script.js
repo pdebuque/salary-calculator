@@ -10,9 +10,8 @@ function readyNow() {
 }
 
 
-// master database of employees
-const employees = {};
-const totalSalaryStyle = {}; //object to store style adjustments to total salary figure
+// master list of employees
+const employees = [];
 let totalSalaries = 0;
 
 function addEmployee() {
@@ -21,15 +20,13 @@ function addEmployee() {
     const newEmployee = {
         firstName: $('#first_name').val(),
         lastName: $('#last_name').val(),
-        id: $('ID').val(),
+        id: $('#ID').val(),
         title: $('#title').val(),
         salary: $('#salary').val(),
     }
     //push employee into array
-    let newEmployeeID = $('#ID').val();
-    console.log(newEmployeeID);
-    employees[newEmployeeID] = newEmployee;
-    console.log(`employees object:`, employees);
+    employees.push(newEmployee);
+    console.log(`employees array:`, employees);
 
     //empty input values
     $('#first_name').val('');
@@ -63,13 +60,11 @@ function deleteRow() {
     console.log('in deleteRow');
     // loop over employees object, find the employee to be deleted
     let infoToDelete = $(this).parent().parent().data(); // this selects the exact id associated with the pressed button
-    console.log('info to Delete:', infoToDelete);
-    let employeeIDs = Object.keys(employees); // array of ids
+    console.log('info to Delete:', infoToDelete);// array of ids
 
-    for (let currentID of employeeIDs) { // for each element in the array of ids,
-        console.log(employees[employeeIDs]); // all the info of the current employee
-        if (Number(currentID) === Number(infoToDelete.id)) {
-            delete employees[currentID];
+    for (let employee of employees) { // for each element in the array of ids,
+        if (Number(employee.id) === Number(infoToDelete.id)) {
+            employees.splice(employees.indexOf(employee), 1);
             totalSalaries -= Number(infoToDelete.monthlysalary)
         }
     }
@@ -99,47 +94,35 @@ function deleteRow() {
 //total currently breaks after deleting rows - i suspect it has to do with the second 'this' in function deleteRow
 
 
-
 function render() {
 
+    //update salaries figure
     $('#totalMonthlySalaries').html(totalSalaries.toFixed(2));
-    //update color of figure
 
+    //update conditional styling
     if (totalSalaries > 20000) {
         $('.total').addClass('over-budget')
     } else {
         $('.total').removeClass('over-budget')
-    }
-
-
-    $('.total').css('background-color', totalSalaryStyle.bgColor);
-    $('.total').css('color', totalSalaryStyle.textColor);
+    };
 
     //clear current table values
     $('#employeeTableBody').html('');
 
     //add employees to dom
-    let employeeIDs = Object.keys(employees);
-    // console.log('employeeIDs:', employeeIDs);
+    for (let employee of employees) {
+        console.log(employee);
 
-    for (let employee of employeeIDs) {
-        // console.log(employee);
-        // console.log(employees[employee]); // looping over objects is hard!!!!
-        let currentEmp = employees[employee];
-
-        $('#employeeTableBody').append(`<tr id = 'employee-${employee}' class='employee' data-id='${employee}' data-monthlySalary='${currentEmp.salary / 12}'>
-    // <th>${currentEmp.firstName}</th>
-    // <th>${currentEmp.lastName}</th>
-    // <th>${employee}</th>
-    // <th>${currentEmp.title}</th>
-    // <th>$${currentEmp.salary}</th>
+        $('#employeeTableBody').append(`<tr id = 'employee-${employee.id}' class='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
+    // <th>${employee.firstName}</th>
+    // <th>${employee.lastName}</th>
+    // <th>${employee.id}</th>
+    // <th>${employee.title}</th>
+    // <th>$${employee.salary}</th>
     // <th><button class="deleteButton">Delete</button></th>
     // </tr>`)
     };
 
     //arm the button - is there a way to do this in the onReady function?
     $('.deleteButton').on('click', deleteRow)
-
-    //handle stylings for total monthly
-
 }
