@@ -90,6 +90,10 @@ input {
 
 /* ----------- table ---------- */
 
+#employee-table-title {
+    margin-top: 25px;
+}
+
 table {
     table-layout: fixed;
     border: 1px solid black;
