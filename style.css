@@ -3,21 +3,92 @@
     --paragraph-font: 'Montserrat', sans-serif;
 }
 
+#all-content {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 400px;
+    max-width: 60%;
+    border-radius: 10px;
+    align-items: center;
+    background: rgb(243, 241, 241);
+}
+
 h1 {
     font-family: var(--title-font);
     font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
     font-family: var(--title-font);
     font-weight: 400;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+/* ---------- inputs ----------- */
+
+#title-and-inputs {
+    padding-top: 10px;
+    border-top: 2px solid grey;
+    padding-bottom: 20px;
+    border-bottom: 2px solid grey;
+    text-align: center;
+}
+
+#inputs-and-btns {
+    display: flex;
+    flex-direction: column;
+}
+
+#input-container-all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--paragraph-font);
+}
+
+.input-container {
+    margin-bottom: 5px;
+}
+
+.input-label {
+    display: inline-block;
+    width: 120px;
+    text-align: right;
 }
 
 input {
     font-family: var(--paragraph-font);
     font-size: 12px;
+    width: 120px;
 }
 
+.input-container:last-of-type {
+    margin-bottom: 10px;
+}
+
+#btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+#inputs-and-btns button {
+    margin: 5px;
+    font-family: var(--paragraph-font);
+}
+
+
+/* ----------- table ---------- */
 
 table {
     table-layout: fixed;
@@ -36,27 +107,27 @@ th {
 }
 
 thead th:nth-child(1) {
-    width: 20%;
+    max-width: 100px;
 }
 
 thead th:nth-child(2) {
-    width: 20%;
+    max-width: 100px;
 }
 
 thead th:nth-child(3) {
-    width: 5%;
+    max-width: 50px;
 }
 
 thead th:nth-child(4) {
-    width: 25%;
+    max-width: 250px;
 }
 
 thead th:nth-child(5) {
-    width: 10%;
+    max-width: 100px;
 }
 
 thead th:nth-child(6) {
-    width: 10%;
+    max-width: 100px;
 }
 
 
@@ -77,12 +148,29 @@ tbody tr:nth-child(even) {
     padding: .5em;
     margin: 10px 0px;
     font-family: var(--paragraph-font);
-    font-size: .9em;
+    font-size: 18px;
     display: inline-block;
 }
 
+#totalMonthlySalaries {
+    font-size: 1.2em;
+}
+
 .over-budget {
+    /* This may be too annoying for a real app, but I wanted to try it anyway */
+    animation: blink 1s infinite;
     background-color: red;
     color: white;
     font-weight: 700;
+    font-size: 24px;
+}
+
+@keyframes blink {
+    0% {
+        background-color: rgb(119, 3, 3);
+    }
+
+    100% {
+        background-color: red;
+    }
 }

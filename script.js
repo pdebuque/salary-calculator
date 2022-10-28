@@ -7,12 +7,61 @@ function readyNow() {
 
     //function to take inputs and add them to the table
     $('#submitEmployeeButton').on('click', addEmployee);
+    $('#make-office-employee').on('click', addOffice); // makes testing easier
 }
 
 
 // master list of employees
 const employees = [];
 let totalSalaries = 0;
+
+const sampleEmployees = [
+    {
+        firstName: 'Michael',
+        lastName: 'Scott',
+        id: 1001,
+        title: 'Regional Manager',
+        salary: 90000,
+    },
+    {
+        firstName: 'Dwight',
+        lastName: 'Shrute',
+        id: 1002,
+        title: 'Assistant (to the) Regional Manager',
+        salary: 80000,
+    },
+    {
+        firstName: 'Jim',
+        lastName: 'Halpert',
+        id: 1003,
+        title: 'Salesman',
+        salary: 70000,
+    },
+    {
+        firstName: 'Pam',
+        lastName: 'Beesly',
+        id: 1004,
+        title: 'Receptionist',
+        salary: 45000,
+    },
+    {
+        firstName: 'Phyllis',
+        lastName: 'Vance',
+        id: 1005,
+        title: 'Salesman',
+        salary: 70000,
+    },
+    {
+        firstName: 'Stanley',
+        lastName: 'Hudson',
+        id: 1006,
+        title: 'Salesman',
+        salary: 70000,
+    },
+
+
+]
+let officeEmpInd = 0; //index for use in addOffice()
 
 function addEmployee() {
     console.log('in addEmployee')
@@ -40,6 +89,24 @@ function addEmployee() {
 
     //render
     render();
+}
+
+function addOffice() {
+    if (officeEmpInd >= sampleEmployees.length) { // bugs happen if you keep adding employees past the number in the sample array
+        window.alert('No more Office employees! Refresh page to get them back')
+    } else {
+
+        console.log('in addOffice');
+        const newOfficeEmployee = sampleEmployees[officeEmpInd]
+        //
+        employees.push(newOfficeEmployee);
+        officeEmpInd++;
+
+        //update total salary figure
+        totalSalaries += Number(newOfficeEmployee.salary) / 12;
+        totalSalaries = Math.abs(totalSalaries); // corner case where when deleting employees, total monthly goes to -0.00
+        render();
+    }
 }
 
 // function addRow(employee) {
@@ -96,6 +163,7 @@ function deleteRow() {
 
 function render() {
 
+    totalSalaries = Math.abs(totalSalaries); // corner case bug: sometimes, deleting all employees results in total salary = -0.00
     //update salaries figure
     $('#totalMonthlySalaries').html(totalSalaries.toFixed(2));
 
