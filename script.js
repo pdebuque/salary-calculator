@@ -8,6 +8,7 @@ function readyNow() {
     //function to take inputs and add them to the table
     $('#submitEmployeeButton').on('click', addEmployee);
     $('#make-office-employee').on('click', addOffice); // makes testing easier
+    $('.text-input').on('keyup', validateText); //trying out data validation
 }
 
 
@@ -65,6 +66,16 @@ let officeEmpInd = 0; //index for use in addOffice()
 
 function addEmployee() {
     console.log('in addEmployee')
+    // data validation: if values are empty or invalid, throw an error message
+    const inputValidation = $('.validation');
+    console.log(inputValidation)
+    for (let input of inputValidation) {
+        if (input.hasClass('validation-false') || !input.val());
+        console.log('validation failed');
+    }
+
+
+
     //take inputs and feed into new object
     const newEmployee = {
         firstName: $('#first_name').val(),
@@ -157,8 +168,8 @@ function deleteRow() {
 // }
 
 //to-do
-//change monthly salary output to have fewer decimals
-//total currently breaks after deleting rows - i suspect it has to do with the second 'this' in function deleteRow
+//change monthly salary output to have fewer decimals. ✅
+//total currently breaks after deleting rows - i suspect it has to do with the second 'this' in function deleteRow. ✅
 
 
 function render() {
@@ -194,3 +205,34 @@ function render() {
     //arm the button - is there a way to do this in the onReady function?
     $('.deleteButton').on('click', deleteRow)
 }
+
+function validateText() {
+    // take value of the input; compare it with parameters;
+    const text = $(this).val();
+    const reminderText = $(this).next();
+    console.log(text);
+    // validation paramter: can only be letters
+
+    if (/^[a-zA-Z]+$/.test(text) || !text) {
+        reminderText.removeClass('validate-false');
+        reminderText.addClass('hidden');
+    } else {
+        reminderText.removeClass('hidden');
+        reminderText.addClass('validate-false');
+    }
+
+    // if it doesn't pass test, remove hidden class;
+    // if it passes test add hidden class
+
+    // 
+
+
+}
+
+
+
+// to-do:
+
+// accessibility fixees: make page (especially inputs) adhere to accessibility best practices
+// warnings: make something actually publish to the dom rather than rely on window.alert
+// input data validation

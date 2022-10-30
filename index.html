@@ -18,33 +18,37 @@
 
 <body>
     <main id="all-content">
+
         <h1>Salary Calculator</h1>
         <div id="title-and-inputs">
             <h2>Add Employee</h2>
             <div id="inputs-and-btns">
-                <div id="input-container-all">
+                <form id="input-container-all">
                     <div class='input-container'>
-                        <span class='input-label'>First Name:</span> <input type="text" name="first_name"
-                            id="first_name" placeholder="First Name">
+                        <label for="first_name" class='input-label'>First Name:</label> <input class="text-input"
+                            type="text" name="first_name" id="first_name"> <span class="validation hidden"
+                            id="first-name-validation">First Name must be text</span>
                     </div>
                     <div class='input-container'>
-                        <span class='input-label'>Last Name: </span> <input type="text" name="last_name" id="last_name"
-                            placeholder="Last Name">
+                        <label for="last_name" class="input-label">Last Name: </label> <input class="text-input"
+                            type="text" name="last_name" id="last_name"> <span class="validation hidden"
+                            id="last-name-validation">Last Name must be text</span>
                     </div>
                     <div class='input-container'>
-                        <span class='input-label'>ID: </span> <input type="text" name="ID" id="ID" placeholder="ID"
-                            size="3">
+                        <label for="ID" class='input-label'>ID: </label> <input type="number" name="ID" id="ID"> <span
+                            class="validation hidden" id="ID-validation"></span>
                     </div>
                     <div class='input-container'>
-                        <span class='input-label'>Title: </span> <input type="text" name="title" id="title"
-                            placeholder="Title">
+                        <label for="title" class='input-label'>Title: </label> <input class="text-input" type="text"
+                            name="title" id="title"> <span class="validation hidden" id="title-validation">Title must be
+                            text</span>
                     </div>
                     <div class='input-container'>
-                        <span class='input-label'>Annual Salary: </span> <input type="text" name="salary" id="salary"
-                            placeholder="Annual Salary" size="6">
+                        <label for="salary" class='input-label'>Annual Salary: </label> <input type="number"
+                            name="salary" id="salary"> <span class="validation hidden" id="salary-validation"></span>
                     </div>
 
-                </div>
+                </form>
                 <div id='btn-container'>
                     <button type="submit" id="submitEmployeeButton">Submit</button>
                     <button id="make-office-employee">Add Special</button>
@@ -52,7 +56,7 @@
             </div>
         </div>
         <h2 id="employee-table-title">Employee Table</h2>
-        <div class="employee-table">
+        <section class="employee-table">
 
             <table id="employeeTable">
                 <thead>
@@ -78,7 +82,7 @@
             </tr> -->
 
             </table>
-        </div>
+        </section>
 
         <div class="total">Total Monthly Payroll: $<span id="totalMonthlySalaries">0</span></div>
     </main>
