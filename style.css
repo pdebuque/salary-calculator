@@ -6,11 +6,24 @@
 
 body {
     background-color: var(--background-color);
-    background-image: url(ae747c669ede5a97c191aea61eb675df.png);
+}
+
+/* background-image: url(); */
+body::before {
+    content: "";
+    background-image: url(geometric\ background.png);
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: .6;
 }
 
 
 #all-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -28,6 +41,7 @@ body {
 h1 {
     font-family: var(--title-font);
     font-weight: 500;
+    font-size: 40px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -68,6 +82,7 @@ button:hover {
 
 .input-container {
     margin-bottom: 5px;
+    /* outline: 1px solid red; */
 }
 
 .input-label {
@@ -75,16 +90,19 @@ button:hover {
     width: 120px;
     text-align: right;
     font-size: 14px;
+    /* outline: 1px solid red; */
 }
 
 input {
     font-family: var(--paragraph-font);
     font-size: 12px;
     width: 120px;
+    /* outline: 1px solid red */
 }
 
 .input-container:last-of-type {
     margin-bottom: 10px;
+
 }
 
 .input-container:focus {
@@ -105,19 +123,45 @@ input {
 
 .validation {
     font-size: 12px;
-    display: inline-block;
-    width: 150px;
-    text-align: left;
-    outline: 1px solid red;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .validate-false {
     color: red;
+    animation: fadeIn .5s;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* have to separate the two hiddens, otherwise the text flashes upon refresh */
 
 .hidden {
     opacity: 0;
+}
+
+.hidden-2 {
+    opacity: 0;
+    color: red;
+    animation: fadeOut .5s;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 /* ----------- table ---------- */
@@ -199,6 +243,7 @@ tbody tr:nth-child(even) {
     color: white;
     font-weight: 700;
     font-size: 24px;
+    border-radius: 3px;
 }
 
 @keyframes blink {

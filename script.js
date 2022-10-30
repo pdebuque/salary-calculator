@@ -65,14 +65,26 @@ const sampleEmployees = [
 let officeEmpInd = 0; //index for use in addOffice()
 
 function addEmployee() {
-    console.log('in addEmployee')
+    console.log('in addEmployee');
     // data validation: if values are empty or invalid, throw an error message
-    const inputValidation = $('.validation');
-    console.log(inputValidation)
-    for (let input of inputValidation) {
-        if (input.hasClass('validation-false') || !input.val());
-        console.log('validation failed');
-    }
+
+    // none of below works bc collections of jquery objects don't like vanilla loops (i think)
+
+    // const inputValidation = $('.validation');
+    // console.log(inputValidation);
+    // for (let input of inputValidation) { // none of the jquery methods work in this iterator. very frustrating...
+    //     const inputClasses = input.classList;
+    //     const correspondingInput = input.previousSibling;
+    //     const correspondingValue = correspondingInput.value;
+    //     console.log(inputClasses);
+
+    //     if (inputClasses.includes('validation-false') || !correspondingValue) {
+
+    //         // if (input.hasClass('validation-false') || !input.val());
+    //         console.log('validation failed');
+    //     }
+    // }
+
 
 
 
@@ -215,9 +227,10 @@ function validateText() {
 
     if (/^[a-zA-Z]+$/.test(text) || !text) {
         reminderText.removeClass('validate-false');
-        reminderText.addClass('hidden');
+        reminderText.addClass('hidden-2');
     } else {
         reminderText.removeClass('hidden');
+        reminderText.removeClass('hidden-2');
         reminderText.addClass('validate-false');
     }
 
