@@ -74,16 +74,19 @@ function addEmployee() {
     // console.log(inputValidation);
     // for (let input of inputValidation) { // none of the jquery methods work in this iterator. very frustrating...
     //     const inputClasses = input.classList;
+    //     console.log(typeof input.classList);
     //     const correspondingInput = input.previousSibling;
     //     const correspondingValue = correspondingInput.value;
     //     console.log(inputClasses);
 
-    //     if (inputClasses.includes('validation-false') || !correspondingValue) {
+    //     if (inputClasses.includes('validate-false') || !correspondingValue) {
 
     //         // if (input.hasClass('validation-false') || !input.val());
     //         console.log('validation failed');
     //     }
     // }
+
+
 
 
 
@@ -96,6 +99,46 @@ function addEmployee() {
         title: $('#title').val(),
         salary: $('#salary').val(),
     }
+
+    for (let key in newEmployee) { // data validation: check if any are empty
+        if (!newEmployee[key]) {
+            console.log(`${key} empty`);
+            $('#error').removeClass('hidden')
+            $('#error').removeClass('submit-error');
+            $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
+            $('#error').html(`Please enter a value for ${key}`);
+            return false;
+        }
+    }
+
+    // data validation: check each text field for validation
+
+    if ($('#first-name-validation').hasClass('validate-false')) {
+        $('#error').removeClass('hidden')
+        $('#error').removeClass('submit-error');
+        $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
+        $('#error').html(`First name must be text`);
+        return false;
+    }
+    if ($('#last-name-validation').hasClass('validate-false')) {
+        $('#error').removeClass('hidden')
+        $('#error').removeClass('submit-error');
+        $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
+        $('#error').html(`Last name must be text`);
+        return false;
+    }
+    if ($('#title-validation').hasClass('validate-false')) {
+        $('#error').removeClass('hidden')
+        $('#error').removeClass('submit-error');
+        $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
+        $('#error').html(`Title must be text`);
+        return false;
+    }
+
+
+    $('#error').addClass('hidden'); // if we get through data validation, hide the error message
+
+
     //push employee into array
     employees.push(newEmployee);
     console.log(`employees array:`, employees);

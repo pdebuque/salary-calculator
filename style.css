@@ -62,7 +62,7 @@ button:hover {
 #title-and-inputs {
     padding-top: 10px;
     border-top: 2px solid grey;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 2px solid grey;
     text-align: center;
     width: 80%;
@@ -156,6 +156,32 @@ input {
 
 @keyframes fadeOut {
     0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+#error {
+    margin: 4px;
+}
+
+.submit-error {
+    animation: fadeInOut 2s;
+    animation-iteration-count: 1;
+    font-family: var(--paragraph-font);
+    font-size: 12px;
+    color: red;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
         opacity: 1;
     }
 
