@@ -145,7 +145,7 @@ input {
 /* have to separate the two hiddens, otherwise the text flashes upon refresh */
 
 .hidden {
-    opacity: 0;
+    opacity: 0 !important;
 }
 
 .hidden-2 {
@@ -165,28 +165,27 @@ input {
 }
 
 #error {
+    height: 14px;
     margin: 4px;
 }
 
 .submit-error {
-    animation: fadeInOut 2s;
-    animation-iteration-count: 1;
+    animation: fadeInOut 2s linear infinite;
     font-family: var(--paragraph-font);
     font-size: 12px;
     color: red;
 }
 
 @keyframes fadeInOut {
-    0% {
-        opacity: 0;
-    }
 
-    50% {
-        opacity: 1;
-    }
-
+    0%,
     100% {
         opacity: 0;
+    }
+
+    40%,
+    60% {
+        opacity: 1;
     }
 }
 

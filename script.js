@@ -112,30 +112,18 @@ function addEmployee() {
     }
 
     // data validation: check each text field for validation
+    const dataValInputs = [$('#first-name-validation'), $('#last-name-validation'), $('#title-validation')];
 
-    if ($('#first-name-validation').hasClass('validate-false')) {
-        $('#error').removeClass('hidden')
-        $('#error').removeClass('submit-error');
-        $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
-        $('#error').html(`First name must be text`);
-        return false;
+    for (let input of dataValInputs) {
+        if (input.hasClass('validate-false')) {
+            $('#error').removeClass('hidden');
+            $('#error').removeClass('submit-error');
+            $('#error').addClass('submit-error');
+            $('#error').html(`Please check text inputs`);
+            return false;
+        }
     }
-    if ($('#last-name-validation').hasClass('validate-false')) {
-        $('#error').removeClass('hidden')
-        $('#error').removeClass('submit-error');
-        $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
-        $('#error').html(`Last name must be text`);
-        return false;
-    }
-    if ($('#title-validation').hasClass('validate-false')) {
-        $('#error').removeClass('hidden')
-        $('#error').removeClass('submit-error');
-        $('#error').addClass('submit-error'); // because the class is an animation in and out, need to remove before re-adding
-        $('#error').html(`Title must be text`);
-        return false;
-    }
-
-
+    $('#error').removeClass('submit-error');
     $('#error').addClass('hidden'); // if we get through data validation, hide the error message
 
 
@@ -248,13 +236,13 @@ function render() {
         console.log(employee);
 
         $('#employeeTableBody').append(`<tr id = 'employee-${employee.id}' class='employee' data-id='${employee.id}' data-monthlySalary='${employee.salary / 12}'>
-    // <th>${employee.firstName}</th>
-    // <th>${employee.lastName}</th>
-    // <th>${employee.id}</th>
-    // <th>${employee.title}</th>
-    // <th>$${employee.salary}</th>
-    // <th><button class="deleteButton">Delete</button></th>
-    // </tr>`)
+        <th>${employee.firstName}</th>
+        <th>${employee.lastName}</th>
+        <th>${employee.id}</th>
+        <th>${employee.title}</th>
+        <th>$${employee.salary}</th>
+        <th><button class="deleteButton">Delete</button></th>
+    </tr>`)
     };
 
     //arm the button - is there a way to do this in the onReady function?
